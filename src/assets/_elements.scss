@@ -1,0 +1,40 @@
+*,
+* > *,
+*::before,
+*::after {
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  line-height: 1;
+  margin: 0;
+  outline-style: none;
+  padding: 0;
+}
+
+:root {
+  font-size: 2vmin;
+  height: 100%;
+}
+
+body {
+  background-color: $bg-color;
+  color: $fg-color;
+  font-family: "Courier New", monospace;
+  font-feature-settings: "palt";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  user-select: none;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $accent-color;
+    border: 0.25rem solid $bg-color;
+    border-radius: 1rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,25 @@
+$base-color: #806060;
+$bg-color: mix(#000000, $base-color, 75%);
+$fg-color: mix(#ffffff, $base-color, 75%);
+$black: mix(#000000, $base-color, 87.5%);
+$white: mix(#ffffff, $base-color, 87.5%);
+$accent-color: $base-color;
+$green: #00f010;
+
+@mixin convex ($bg) {
+  background-color: $bg;
+  border: 2px solid rgba($white, 0.125);
+  border-right-color: rgba($black, 0.125);
+  border-bottom-color: rgba($black, 0.125);
+}
+
+@mixin concave ($bg) {
+  background-color: $bg;
+  border: 2px solid rgba($black, 0.125);
+  border-right-color: rgba($white, 0.125);
+  border-bottom-color: rgba($white, 0.125);
+}
+
+@mixin text-stroke ($color) {
+  text-shadow: -1px 0 0 $color, 0 1px 0 $color, 1px 0 0 $color, 0 -1px 0 $color;
+}
