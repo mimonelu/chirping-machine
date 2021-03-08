@@ -20,16 +20,11 @@
         @click="onClickChangeAllSecondButton"
       >Change all</div>
       <div class="label">Volume</div>
-      <select
-        v-model="volumeEasing"
-        class="select"
+      <HoverMenu
+        :options="easings"
+        :value.sync="volumeEasing"
         @change="onChangeEasing"
-      >
-        <option
-          v-for="easingValue, easingName in ChirpingMachineEasings"
-          :key="easingName"
-          :value="easingName">{{ easingName }}</option>
-      </select>
+      />
       <Range
         ref="volumeRange"
         :min="0.05"
@@ -43,16 +38,11 @@
         @click="onClickChangeAllVolumeButton"
       >Change all</div>
       <div class="label">Special</div>
-      <select
-        v-model="specialEasing"
-        class="select"
+      <HoverMenu
+        :options="easings"
+        :value.sync="specialEasing"
         @change="onChangeEasing"
-      >
-        <option
-          v-for="easingValue, easingName in ChirpingMachineEasings"
-          :key="easingName"
-          :value="easingName">{{ easingName }}</option>
-      </select>
+      />
       <Range
         ref="specialRange"
         :min="0.05"
@@ -75,6 +65,7 @@
 
 <script>
 import { ChirpingMachineEasings } from '@/scripts/chirping-machine'
+import HoverMenu from '@/components/HoverMenu'
 import Popup from '@/components/Popup'
 import Range from '@/components/Range'
 
@@ -82,6 +73,7 @@ export default {
   name: 'OptionPopup',
 
   components: {
+    HoverMenu,
     Popup,
     Range,
   },
@@ -95,6 +87,15 @@ export default {
       special: 0,
       specialEasing: '',
     }
+  },
+
+  computed: {
+    easings () {
+      return Object.keys(ChirpingMachineEasings).map((easing) => ({
+        label: easing,
+        value: easing,
+      }))
+    },
   },
 
   created () {
@@ -202,6 +203,11 @@ export default {
     margin-bottom: 3rem;
     padding-right: 1rem;
     width: 100%;
+
+    .HoverMenu {
+      font-size: 0.875rem;
+      width: 8.5rem;
+    }
   }
 }
 </style>

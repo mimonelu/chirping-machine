@@ -17,16 +17,11 @@
         @change="onChangeSecond"
       />
       <div class="label">Volume</div>
-      <select
-        v-model="volumeEasing"
-        class="select"
+      <HoverMenu
+        :options="easings"
+        :value.sync="volumeEasing"
         @change="onChangeEasing"
-      >
-        <option
-          v-for="easingValue, easingName in ChirpingMachineEasings"
-          :key="easingName"
-          :value="easingName">{{ easingName }}</option>
-      </select>
+      />
       <Range
         ref="volumeRange"
         :min="0.05"
@@ -36,16 +31,11 @@
         @change="onChangeVolume"
       />
       <div class="label">Special</div>
-      <select
-        v-model="specialEasing"
-        class="select"
+      <HoverMenu
+        :options="easings"
+        :value.sync="specialEasing"
         @change="onChangeEasing"
-      >
-        <option
-          v-for="easingValue, easingName in ChirpingMachineEasings"
-          :key="easingName"
-          :value="easingName">{{ easingName }}</option>
-      </select>
+      />
       <Range
         ref="specialRange"
         :min="0.05"
@@ -84,6 +74,7 @@
 import { irandom, stripNumber, wait } from '@/scripts/util'
 import { ChirpingMachineEasings } from '@/scripts/chirping-machine'
 import ColorfulText from '@/components/ColorfulText'
+import HoverMenu from '@/components/HoverMenu'
 import Range from '@/components/Range'
 import WaveCanvas from '@/components/WaveCanvas'
 
@@ -92,6 +83,7 @@ export default {
 
   components: {
     ColorfulText,
+    HoverMenu,
     Range,
     WaveCanvas,
   },
@@ -111,6 +103,15 @@ export default {
       special: 0,
       specialEasing: '',
     }
+  },
+
+  computed: {
+    easings () {
+      return Object.keys(ChirpingMachineEasings).map((easing) => ({
+        label: easing,
+        value: easing,
+      }))
+    },
   },
 
   created () {
@@ -314,14 +315,17 @@ export default {
   .rangeContainer {
     display: grid;
     align-items: center;
-    grid-gap: 0.5rem 1rem;
+    grid-gap: 0.5rem 0.75rem;
     grid-template-columns: auto auto 1fr;
     margin-bottom: 1rem;
     padding: 0 0.5rem;
 
     .label,
-    .select {
+    .HoverMenu {
       font-size: 0.875rem;
+    }
+    .HoverMenu {
+      width: 8.5rem;
     }
   }
 
@@ -329,8 +333,7 @@ export default {
     display: flex;
     align-items: center;
 
-    .button,
-    .select {
+    .button {
       &:not(:last-child) {
         margin-right: 0.5rem;
       }

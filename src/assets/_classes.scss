@@ -9,23 +9,6 @@
   }
 }
 
-.select {
-  background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 24 24"><path fill="%23e3d7d7" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>') no-repeat right 0.5rem center;
-  background-size: 1rem;
-  @include convex($accent-color);
-  appearance: none;
-  border-radius: 0.125rem;
-  color: $fg-color;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  line-height: 1;
-  padding: 0.25rem 2em 0.25em 0.5rem;
-  &:hover {
-    background-color: mix($accent-color, $fg-color, 75%);
-  }
-}
-
 .text-link {
   color: $accent-color;
   text-decoration: none;
