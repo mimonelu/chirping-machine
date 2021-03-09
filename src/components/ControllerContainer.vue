@@ -41,26 +41,29 @@ export default {
     async changeAllSecond (value) {
       for (const key in this.$refs) {
         const controller = this.$refs[key][0]
-        await controller.changeSecond(value)
+        controller.second = value
         controller.updateSecondRange()
+        controller.save()
       }
     },
 
     async changeAllVolume (value, easing) {
       for (const key in this.$refs) {
         const controller = this.$refs[key][0]
-        await controller.changeVolume(value)
+        controller.volume = value
         controller.updateVolumeRange()
         controller.volumeEasing = easing
+        controller.save()
       }
     },
 
     async changeAllSpecial (value, easing) {
       for (const key in this.$refs) {
         const controller = this.$refs[key][0]
-        await controller.changeSpecial(value)
+        controller.special = value
         controller.updateSpecialRange()
         controller.specialEasing = easing
+        controller.save()
       }
     },
 

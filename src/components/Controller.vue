@@ -13,36 +13,36 @@
         :min="0.05"
         :max="3.0"
         :step="0.05"
-        :value="second"
-        @change="onChangeSecond"
+        :value.sync="second"
+        @change="onChange"
       />
       <div class="label">Volume</div>
       <HoverMenu
         :options="easings"
         :value.sync="volumeEasing"
-        @change="onChangeEasing"
+        @change="onChange"
       />
       <Range
         ref="volumeRange"
         :min="0.05"
         :max="1.0"
         :step="0.05"
-        :value="volume"
-        @change="onChangeVolume"
+        :value.sync="volume"
+        @change="onChange"
       />
       <div class="label">Special</div>
       <HoverMenu
         :options="easings"
         :value.sync="specialEasing"
-        @change="onChangeEasing"
+        @change="onChange"
       />
       <Range
         ref="specialRange"
         :min="0.05"
         :max="1.0"
         :step="0.05"
-        :value="special"
-        @change="onChangeSpecial"
+        :value.sync="special"
+        @change="onChange"
       />
     </div>
     <div class="buttonContainer">
@@ -171,33 +171,11 @@ export default {
       this.save()
     },
 
+    // WANT: throttle したい
     async updateCanvas () {
       if (this.$refs.waveCanvas) {
         await this.$refs.waveCanvas.update(this.audio.data)
       }
-    },
-
-    async changeSecond (value) {
-      this.second = value
-      this.update()
-      await this.updateCanvas()
-    },
-
-    async changeVolume (value) {
-      this.volume = value
-      this.update()
-      await this.updateCanvas()
-    },
-
-    async changeSpecial (value) {
-      this.special = value
-      this.update()
-      await this.updateCanvas()
-    },
-
-    async changeEasing () {
-      this.update()
-      await this.updateCanvas()
     },
 
     updateSecondRange () {
@@ -212,8 +190,13 @@ export default {
       this.$refs.specialRange.updateValue(this.special)
     },
 
+    async onChange () {
+      this.update()
+      await this.updateCanvas()
+      this.audio.play()
+    },
+
     onClickPlayButton () {
-      this.audio.stop()
       this.update()
       this.audio.play()
     },
@@ -248,34 +231,9 @@ export default {
       this.audio.save(this.name)
     },
 
-    async onChangeSecond (value) {
-      this.audio.stop()
-      await this.changeSecond(value)
-      this.audio.play()
-    },
-
-    async onChangeVolume (value) {
-      this.audio.stop()
-      await this.changeVolume(value)
-      this.audio.play()
-    },
-
-    async onChangeSpecial (value) {
-      this.audio.stop()
-      await this.changeSpecial(value)
-      this.audio.play()
-    },
-
-    async onChangeEasing () {
-      this.audio.stop()
-      await this.changeEasing()
-      this.audio.play()
-    },
-
     async onClickRandomizeSpecialButton () {
-      this.audio.stop()
       this.special = stripNumber(irandom(1, 20) * 0.05, 100)
-      this.$refs.specialRange.updateValue(this.special)
+      this.updateSpecialRange()
       const easingNames = Object.keys(ChirpingMachineEasings)
       this.specialEasing = easingNames[irandom(0, easingNames.length - 1)]
       this.update()

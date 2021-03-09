@@ -12,8 +12,8 @@
         :min="0.05"
         :max="3.0"
         :step="0.05"
-        :value="second"
-        @change="onChangeSecond"
+        :value.sync="second"
+        @change="onChange"
       />
       <div
         class="button"
@@ -23,15 +23,15 @@
       <HoverMenu
         :options="easings"
         :value.sync="volumeEasing"
-        @change="onChangeEasing"
+        @change="onChange"
       />
       <Range
         ref="volumeRange"
         :min="0.05"
         :max="1.0"
         :step="0.05"
-        :value="volume"
-        @change="onChangeVolume"
+        :value.sync="volume"
+        @change="onChange"
       />
       <div
         class="button"
@@ -41,15 +41,15 @@
       <HoverMenu
         :options="easings"
         :value.sync="specialEasing"
-        @change="onChangeEasing"
+        @change="onChange"
       />
       <Range
         ref="specialRange"
         :min="0.05"
         :max="1.0"
         :step="0.05"
-        :value="special"
-        @change="onChangeSpecial"
+        :value.sync="special"
+        @change="onChange"
       />
       <div
         class="button"
@@ -135,22 +135,7 @@ export default {
       localStorage.setItem('option', storage)
     },
 
-    onChangeSecond (value) {
-      this.second = value
-      this.save()
-    },
-
-    onChangeVolume (value) {
-      this.volume = value
-      this.save()
-    },
-
-    onChangeSpecial (value) {
-      this.special = value
-      this.save()
-    },
-
-    onChangeEasing () {
+    onChange () {
       this.save()
     },
 

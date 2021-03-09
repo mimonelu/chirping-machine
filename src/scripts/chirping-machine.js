@@ -58,6 +58,7 @@ class ChirpingMachineInstance {
 
   play (volume = 0.5) {
     if (this.context.state === 'running') {
+      this.stop()
       this.source = this.context.createBufferSource()
       this.source.buffer = this.buffer
 

@@ -83,7 +83,8 @@ export default {
         this.knobNode.style.left = `${left}px`
       }
       if (this.previousLeft !== left && whetherEmit) {
-        this.$emit('change', this.pseudoValue)
+        this.$emit('update:value', this.pseudoValue)
+        this.$emit('change')
       }
       this.previousLeft = left
     },
